@@ -15,6 +15,7 @@ func (l Logger) Handler(handler handlerFunc) handlerFunc {
 		handler(c)
 		if err := recover(); err != nil {
 			log.Fatalln(err)
+			panic(err)
 		}
 	}
 }

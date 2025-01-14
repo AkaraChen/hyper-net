@@ -8,6 +8,7 @@ import (
 func (h *Hyper) handleMethod(method, path string, handler handlerFunc, middlewares ...Middleware) {
 	pattern := fmt.Sprintf("%s %s%s", method, h.Group, path)
 	h.Mux.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
+		defer recover()
 		c := NewContext(w, r)
 		m := append(h.middlewares, middlewares...)
 		ApplyMiddlewares(handler, m...)(c)
