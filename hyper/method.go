@@ -8,7 +8,7 @@ import (
 func (h *Hyper) handleMethod(method, path string, handler handlerFunc) {
 	pattern := fmt.Sprintf("%s %s%s", method, h.Group, path)
 	h.Mux.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
-		c := &Context{Writer: w, Req: r}
+		c := NewContext(w, r)
 		handler(c)
 	})
 }

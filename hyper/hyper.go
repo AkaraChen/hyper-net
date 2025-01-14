@@ -40,7 +40,9 @@ func New(opts HyperOption) *Hyper {
 
 func (h *Hyper) Mount(hyper *Hyper) {
 	pattern := fmt.Sprintf("%s%s/", h.Group, hyper.Group)
-	h.Mux.Handle(pattern, hyper.Mux)
+	for _, method := range methods {
+		h.Mux.Handle(fmt.Sprintf("%s %s", method, pattern), hyper.Mux)
+	}
 }
 
 func (h *Hyper) Start(addr string) error {

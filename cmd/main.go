@@ -9,6 +9,13 @@ import (
 func main() {
 	server := hyper.New(hyper.HyperOption{})
 	server.Get(
+		"/",
+		func(c *hyper.Context) {
+			c.Header.Set(hyper.HeaderContentType, hyper.MimeTextPlain)
+			c.Text([]byte("<h1>Hello World!</h1>"))
+		},
+	)
+	server.Get(
 		"/health",
 		func(c *hyper.Context) {
 			c.JSON(map[string]interface{}{

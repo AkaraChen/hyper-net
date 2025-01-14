@@ -8,6 +8,15 @@ import (
 type Context struct {
 	Writer http.ResponseWriter
 	Req    *http.Request
+	Header *Header
+}
+
+func NewContext(w http.ResponseWriter, r *http.Request) *Context {
+	return &Context{
+		Writer: w,
+		Req:    r,
+		Header: &Header{req: r, res: w},
+	}
 }
 
 func (c *Context) Text(data []byte) (int, error) {
@@ -15,7 +24,7 @@ func (c *Context) Text(data []byte) (int, error) {
 }
 
 func (c *Context) JSON(data interface{}) error {
-	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Header.Set(HeaderContentType, MimeApplicationJSON)
 	return json.NewEncoder(c.Writer).Encode(data)
 }
 
