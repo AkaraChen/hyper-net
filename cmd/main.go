@@ -11,7 +11,7 @@ func main() {
 	server.Get(
 		"/",
 		func(c *hyper.Context) {
-			c.Header.Set(hyper.HeaderContentType, hyper.MimeTextPlain)
+			c.Header.Set(hyper.HeaderContentType, hyper.MIMETextPlain)
 			c.Text([]byte("<h1>Hello World!</h1>"))
 		},
 	)

@@ -24,7 +24,7 @@ func (c *Context) Text(data []byte) (int, error) {
 }
 
 func (c *Context) JSON(data interface{}) error {
-	c.Header.Set(HeaderContentType, MimeApplicationJSON)
+	c.Header.Set(HeaderContentType, MIMEApplicationJSON)
 	return json.NewEncoder(c.Writer).Encode(data)
 }
 
