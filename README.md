@@ -6,11 +6,10 @@
 - [x] Group
 - [x] Status
 - [x] IP(X-Forwarded-For)
+- [x] Method
+- [x] Query
+- [x] Redirect
+- [x] Cookie
+- [x] FormValue/FormFile
+- [x] Download
 - [ ] Middleware
-- [ ] FormValue/FormFile
-- [ ] Cookie
-- [ ] Download
-- [ ] Location
-- [ ] Method
-- [ ] Query
-- [ ] Redirect
