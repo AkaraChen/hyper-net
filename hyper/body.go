@@ -23,5 +23,3 @@ func (b *Body) Text() (string, error) {
 	}
 	return string(data), nil
 }
-
-func (b *Body) Form() {}
