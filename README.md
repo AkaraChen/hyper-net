@@ -8,6 +8,7 @@ Just a toy project.
 2. Easy to use
 3. Support for middleware (onion architecture)
 4. Support for `http.Handler`(By calling `hyper.HTTPHandlerIntoHyper`)
+5. Graceful shutdown
 
 ## TODO
 
