@@ -5,47 +5,48 @@ import (
 	"net/http"
 )
 
-func (h *Hyper) handleMethod(method, path string, handler handlerFunc) {
+func (h *Hyper) handleMethod(method, path string, handler handlerFunc, middlewares ...Middleware) {
 	pattern := fmt.Sprintf("%s %s%s", method, h.Group, path)
 	h.Mux.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
 		c := NewContext(w, r)
-		ApplyMiddlewares(handler, []Middleware{})(c)
+		m := append(h.middlewares, middlewares...)
+		ApplyMiddlewares(handler, m...)(c)
 	})
 }
 
-func (h *Hyper) Get(path string, handler handlerFunc) {
-	h.handleMethod(http.MethodGet, path, handler)
+func (h *Hyper) Get(path string, handler handlerFunc, middlewares ...Middleware) {
+	h.handleMethod(http.MethodGet, path, handler, middlewares...)
 }
 
-func (h *Hyper) Post(path string, handler handlerFunc) {
-	h.handleMethod(http.MethodPost, path, handler)
+func (h *Hyper) Post(path string, handler handlerFunc, middlewares ...Middleware) {
+	h.handleMethod(http.MethodPost, path, handler, middlewares...)
 }
 
-func (h *Hyper) Put(path string, handler handlerFunc) {
-	h.handleMethod(http.MethodPut, path, handler)
+func (h *Hyper) Put(path string, handler handlerFunc, middlewares ...Middleware) {
+	h.handleMethod(http.MethodPut, path, handler, middlewares...)
 }
 
-func (h *Hyper) Delete(path string, handler handlerFunc) {
+func (h *Hyper) Delete(path string, handler handlerFunc, middlewares ...Middleware) {
 	h.handleMethod(http.MethodDelete, path, handler)
 }
 
-func (h *Hyper) Patch(path string, handler handlerFunc) {
+func (h *Hyper) Patch(path string, handler handlerFunc, middlewares ...Middleware) {
 	h.handleMethod(http.MethodPatch, path, handler)
 }
 
-func (h *Hyper) Head(path string, handler handlerFunc) {
+func (h *Hyper) Head(path string, handler handlerFunc, middlewares ...Middleware) {
 	h.handleMethod(http.MethodHead, path, handler)
 }
 
-func (h *Hyper) Options(path string, handler handlerFunc) {
+func (h *Hyper) Options(path string, handler handlerFunc, middlewares ...Middleware) {
 	h.handleMethod(http.MethodOptions, path, handler)
 }
 
-func (h *Hyper) Trace(path string, handler handlerFunc) {
+func (h *Hyper) Trace(path string, handler handlerFunc, middlewares ...Middleware) {
 	h.handleMethod(http.MethodTrace, path, handler)
 }
 
-func (h *Hyper) Connect(path string, handler handlerFunc) {
+func (h *Hyper) Connect(path string, handler handlerFunc, middlewares ...Middleware) {
 	h.handleMethod(http.MethodConnect, path, handler)
 }
 

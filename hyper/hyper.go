@@ -21,12 +21,14 @@ func init() {
 }
 
 type Hyper struct {
-	Group string
-	Mux   *http.ServeMux
+	Group       string
+	Mux         *http.ServeMux
+	middlewares []Middleware
 }
 
 type HyperOption struct {
-	Group string
+	Group       string
+	Middlewares []Middleware
 }
 
 func New(opts HyperOption) *Hyper {
@@ -35,6 +37,7 @@ func New(opts HyperOption) *Hyper {
 		h.Group = opts.Group
 	}
 	h.Mux = http.NewServeMux()
+	h.middlewares = opts.Middlewares
 	return h
 }
 

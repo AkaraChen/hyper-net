@@ -12,4 +12,4 @@
 - [x] Cookie
 - [x] FormValue/FormFile
 - [x] Download
-- [ ] Middleware
+- [x] Middleware

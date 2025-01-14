@@ -10,7 +10,8 @@ func (m MiddlewareFunc) Handler(h handlerFunc) handlerFunc {
 	return m(h)
 }
 
-func ApplyMiddlewares(h handlerFunc, middlewares []Middleware) handlerFunc {
+// ApplyMiddlewares applies a list of middlewares to a handlerFunc, wrapping them in an onion pattern.
+func ApplyMiddlewares(h handlerFunc, middlewares ...Middleware) handlerFunc {
 	for i := len(middlewares) - 1; i >= 0; i-- {
 		h = middlewares[i].Handler(h)
 	}
