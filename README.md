@@ -1,5 +1,14 @@
 # Hyper Net
 
+Just a toy project.
+
+## Features
+
+1. Based on [net/http](https://pkg.go.dev/net/http)
+2. Easy to use
+3. Support for middleware (onion architecture)
+4. Support for `http.Handler`(By calling `hyper.HTTPHandlerIntoHyper`)
+
 ## TODO
 
 - [x] Method
@@ -13,4 +22,4 @@
 - [x] FormValue/FormFile
 - [x] Download
 - [x] Middleware
-- [x] Support `http.Handler`(By calling `hyper.HTTPHandlerIntoHyper`) 
+- [x] Support `http.Handler`
