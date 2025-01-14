@@ -13,3 +13,4 @@
 - [x] FormValue/FormFile
 - [x] Download
 - [x] Middleware
+- [x] Support `http.Handler`(By calling `hyper.HTTPHandlerIntoHyper`) 
