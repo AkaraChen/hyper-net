@@ -1,6 +1,9 @@
 package hyper
 
-import "net/http"
+import (
+	"fmt"
+	"net/http"
+)
 
 type Header struct {
 	req *http.Request
@@ -13,4 +16,18 @@ func (h *Header) Get(name string) string {
 
 func (h *Header) Set(name string, value string) {
 	h.res.Header().Set(name, value)
+}
+
+func (h *Header) Del(name string) {
+	h.res.Header().Del(name)
+}
+
+func (h *Header) Append(name string, value string) {
+	v := h.res.Header().Get(name)
+	if v == "" {
+		v = value
+	} else {
+		v = fmt.Sprintf("%s,%s", v, value)
+	}
+	h.res.Header().Set(name, v)
 }

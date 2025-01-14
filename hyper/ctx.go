@@ -9,6 +9,7 @@ type Context struct {
 	Writer http.ResponseWriter
 	Req    *http.Request
 	Header *Header
+	Body   *Body
 }
 
 func NewContext(w http.ResponseWriter, r *http.Request) *Context {
@@ -16,6 +17,7 @@ func NewContext(w http.ResponseWriter, r *http.Request) *Context {
 		Writer: w,
 		Req:    r,
 		Header: &Header{req: r, res: w},
+		Body:   &Body{req: r, res: w},
 	}
 }
 
