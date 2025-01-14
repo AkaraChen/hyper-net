@@ -2,9 +2,12 @@ package hyper
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"runtime"
 	"strings"
+
+	"github.com/ory/graceful"
 )
 
 type handlerFunc func(*Context)
@@ -48,6 +51,13 @@ func (h *Hyper) Mount(hyper *Hyper) {
 	}
 }
 
-func (h *Hyper) Start(addr string) error {
-	return http.ListenAndServe(addr, h.Mux)
+func (h *Hyper) Start(addr string) {
+	server := graceful.WithDefaults(&http.Server{
+		Addr:    addr,
+		Handler: h.Mux,
+	})
+	if err := graceful.Graceful(server.ListenAndServe, server.Shutdown); err != nil {
+		log.Fatalln("main: Failed to gracefully shutdown")
+	}
+	log.Println("main: Server was shutdown gracefully")
 }
