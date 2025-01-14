@@ -27,7 +27,7 @@ func (h *Header) Append(name string, value string) {
 	if v == "" {
 		v = value
 	} else {
-		v = fmt.Sprintf("%s,%s", v, value)
+		v = fmt.Sprintf("%s, %s", v, value)
 	}
 	h.res.Header().Set(name, v)
 }
