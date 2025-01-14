@@ -1,8 +1,6 @@
 package main
 
 import (
-	"net/http"
-
 	"github.com/akarachen/hyper-net/hyper"
 )
 
@@ -14,6 +12,17 @@ func main() {
 			c.Text([]byte("Hello World!"))
 		},
 	)
-	http.Handle("/", server)
-	http.ListenAndServe(":80", nil)
+	server.Get(
+		"/health",
+		func(c *hyper.Context) {
+			c.Text([]byte("OK"))
+		},
+	)
+	server.Get(
+		"/greet/{name}",
+		func(c *hyper.Context) {
+			c.Text([]byte("Hello " + c.Req.PathValue("name")))
+		},
+	)
+	server.Start(":80")
 }
