@@ -7,7 +7,11 @@ import (
 )
 
 func main() {
-	server := hyper.New(hyper.HyperOption{})
+	server := hyper.New(hyper.HyperOption{
+		Middlewares: []hyper.Middleware{
+			hyper.Logger{},
+		},
+	})
 	server.Get(
 		"/",
 		func(c *hyper.Context) {
