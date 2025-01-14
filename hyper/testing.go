@@ -16,6 +16,6 @@ func NewHyperTest(hyper *Hyper) *HyperTest {
 func (h *HyperTest) Test(req *http.Request) *httptest.ResponseRecorder {
 	handler, _ := h.Mux.Handler(req)
 	res := httptest.NewRecorder()
-	handler.ServeHTTP(res, nil)
+	handler.ServeHTTP(res, req)
 	return res
 }
