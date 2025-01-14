@@ -6,6 +6,8 @@ import (
 	"strings"
 )
 
+type handlerFunc func(*Context)
+
 func init() {
 	v := runtime.Version()
 	semver := strings.Split(v, ".")
@@ -18,8 +20,21 @@ func init() {
 }
 
 type Hyper struct {
+	Group string
 }
 
-func (h *Hyper) Start(addr string) error {
+type HyperOption struct {
+	Group string
+}
+
+func New(opts HyperOption) *Hyper {
+	h := new(Hyper)
+	if opts.Group != "" {
+		h.Group = opts.Group
+	}
+	return h
+}
+
+func Start(addr string) error {
 	return http.ListenAndServe(addr, nil)
 }

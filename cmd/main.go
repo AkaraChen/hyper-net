@@ -5,24 +5,21 @@ import (
 )
 
 func main() {
-	server := new(hyper.Hyper)
+	server := hyper.New(hyper.HyperOption{})
 	server.Get(
-		"/",
+		"/health",
+		func(c *hyper.Context) {
+			c.JSON(map[string]interface{}{
+				"status": "ok",
+			})
+		},
+	)
+	v1 := hyper.New(hyper.HyperOption{Group: "/v1"})
+	v1.Get(
+		"/hello",
 		func(c *hyper.Context) {
 			c.Text([]byte("Hello World!"))
 		},
 	)
-	server.Get(
-		"/health",
-		func(c *hyper.Context) {
-			c.Text([]byte("OK"))
-		},
-	)
-	server.Get(
-		"/greet/{name}",
-		func(c *hyper.Context) {
-			c.Text([]byte("Hello " + c.Req.PathValue("name")))
-		},
-	)
-	server.Start(":80")
+	hyper.Start(":80")
 }
