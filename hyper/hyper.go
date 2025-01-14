@@ -1,6 +1,7 @@
 package hyper
 
 import (
+	"fmt"
 	"net/http"
 	"runtime"
 	"strings"
@@ -21,6 +22,7 @@ func init() {
 
 type Hyper struct {
 	Group string
+	Mux   *http.ServeMux
 }
 
 type HyperOption struct {
@@ -32,9 +34,15 @@ func New(opts HyperOption) *Hyper {
 	if opts.Group != "" {
 		h.Group = opts.Group
 	}
+	h.Mux = http.NewServeMux()
 	return h
 }
 
-func Start(addr string) error {
-	return http.ListenAndServe(addr, nil)
+func (h *Hyper) Mount(hyper *Hyper) {
+	pattern := fmt.Sprintf("%s%s/", h.Group, hyper.Group)
+	h.Mux.Handle(pattern, hyper.Mux)
+}
+
+func (h *Hyper) Start(addr string) error {
+	return http.ListenAndServe(addr, h.Mux)
 }

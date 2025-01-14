@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/akarachen/hyper-net/hyper"
 )
 
@@ -16,10 +18,11 @@ func main() {
 	)
 	v1 := hyper.New(hyper.HyperOption{Group: "/v1"})
 	v1.Get(
-		"/hello",
+		"/hello/{name}",
 		func(c *hyper.Context) {
-			c.Text([]byte("Hello World!"))
+			c.Text([]byte(fmt.Sprintf("Hello %s!", c.PathValue("name"))))
 		},
 	)
-	hyper.Start(":80")
+	server.Mount(v1)
+	server.Start(":80")
 }
