@@ -10,6 +10,7 @@ func main() {
 	server := hyper.New(hyper.HyperOption{
 		Middlewares: []hyper.Middleware{
 			hyper.Logger{},
+			hyper.NewEnvironmentContextMiddleware("dev"),
 		},
 	})
 	server.Get(

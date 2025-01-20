@@ -1,6 +1,7 @@
 package hyper
 
 import (
+	"context"
 	"encoding/json"
 	"mime/multipart"
 	"net/http"
@@ -8,6 +9,7 @@ import (
 )
 
 type Context struct {
+	context.Context
 	Writer    http.ResponseWriter
 	Req       *http.Request
 	Header    *Header
@@ -21,6 +23,7 @@ type Context struct {
 
 func NewContext(w http.ResponseWriter, r *http.Request) *Context {
 	return &Context{
+		Context:   r.Context(),
 		Writer:    w,
 		Req:       r,
 		Header:    &Header{req: r, res: w},
